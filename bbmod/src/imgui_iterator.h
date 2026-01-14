@@ -1951,10 +1951,25 @@ END_IMGUI_FUNC
 // How to handle texture?
 //IMGUI_API void  AddImage(ImTextureID user_texture_id, const ImVec2 &a, const ImVec2 &b, const ImVec2 &uv0 = ImVec2(0, 0), const ImVec2 &uv1 = ImVec2(1, 1), ImU32 col = 0xFFFFFFFF);
 
-// How to pass and retrieve a table for the first argument?
-// Probably easier to just make wrappers for these in the pso table.
 //IMGUI_API void  AddPolyline(const ImVec2 *points, const int num_points, ImU32 col, bool closed, float thickness, bool anti_aliased);
+IMGUI_FUNCTION(AddPolyline)
+IM_VEC_2_ARRAY_ARG(points)
+NUMBER_ARG(num_points)
+NUMBER_ARG(col)
+BOOL_ARG(closed)
+NUMBER_ARG(thickness)
+BOOL_ARG(anti_aliased)
+CALL_DRAWLIST_FUNCTION_NO_RET(AddPolyline, points, num_points, col, closed, thickness, anti_aliased)
+END_IMGUI_FUNC
+
 //IMGUI_API void  AddConvexPolyFilled(const ImVec2 *points, const int num_points, ImU32 col, bool anti_aliased);
+IMGUI_FUNCTION(AddConvexPolyFilled)
+IM_VEC_2_ARRAY_ARG(points)
+NUMBER_ARG(num_points)
+NUMBER_ARG(col)
+BOOL_ARG(anti_aliased)
+CALL_DRAWLIST_FUNCTION_NO_RET(AddConvexPolyFilled, points, num_points, col, anti_aliased)
+END_IMGUI_FUNC
 
 
 

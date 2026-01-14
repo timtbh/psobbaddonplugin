@@ -110,6 +110,20 @@ static int impl_##name(lua_State *L) { \
     } \
   const ImVec2 name((float)i_##name##_x, (float)i_##name##_y);
 
+#define IM_VEC_2_ARRAY_ARG(name) \
+  luaL_checktype(L, arg, LUA_TTABLE); \
+  int len = lua_objlen(L, arg++); \
+  std::vector<ImVec2> list; \
+  for (int i = 0; i < len; i += 2) \
+  { \
+    lua_rawgeti(L, arg - 1, i + 1); \
+    lua_rawgeti(L, arg - 1, i + 2); \
+    ImVec2 point((float)luaL_checknumber(L, -2), (float)luaL_checknumber(L, -1)); \
+    list.push_back(point); \
+    lua_pop(L, 2); \
+  } \
+  const ImVec2 *name = list.data(); \
+
 #define IM_VEC_4_ARG(name)\
   const lua_Number i_##name##_x = luaL_checknumber(L, arg++); \
   const lua_Number i_##name##_y = luaL_checknumber(L, arg++); \
@@ -601,6 +615,8 @@ static const struct luaL_Reg imguilib[] = {
 #define IM_VEC_2_ARG(name)
 #undef OPTIONAL_IM_VEC_2_ARG
 #define OPTIONAL_IM_VEC_2_ARG(name, x, y)
+#undef IM_VEC_2_ARRAY_ARG
+#define IM_VEC_2_ARRAY_ARG(name)
 #undef IM_VEC_4_ARG
 #define IM_VEC_4_ARG(name)
 #undef OPTIONAL_IM_VEC_4_ARG
