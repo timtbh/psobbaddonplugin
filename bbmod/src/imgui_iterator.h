@@ -1971,7 +1971,14 @@ BOOL_ARG(anti_aliased)
 CALL_DRAWLIST_FUNCTION_NO_RET(AddConvexPolyFilled, points, num_points, col, anti_aliased)
 END_IMGUI_FUNC
 
-
+//IMGUI_API void  AddConcavePolyFilled(const ImVec2 *points, const int num_points, ImU32 col, bool anti_aliased);
+IMGUI_FUNCTION(AddConcavePolyFilled)
+IM_VEC_2_ARRAY_ARG(points)
+NUMBER_ARG(num_points)
+NUMBER_ARG(col)
+BOOL_ARG(anti_aliased)
+CALL_DRAWLIST_FUNCTION_NO_RET(AddConcavePolyFilled, points, num_points, col, anti_aliased)
+END_IMGUI_FUNC
 
 //    IMGUI_API ImGuiContext* CreateContext(void* (*malloc_fn)(size_t) = NULL, void (*free_fn)(void*) = NULL);
 // Unsupported return type ImGuiContext*

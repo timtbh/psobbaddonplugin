@@ -1206,6 +1206,7 @@ struct ImDrawList
     IMGUI_API void  AddImage(ImTextureID user_texture_id, const ImVec2& a, const ImVec2& b, const ImVec2& uv0 = ImVec2(0,0), const ImVec2& uv1 = ImVec2(1,1), ImU32 col = 0xFFFFFFFF);
     IMGUI_API void  AddPolyline(const ImVec2* points, const int num_points, ImU32 col, bool closed, float thickness, bool anti_aliased);
     IMGUI_API void  AddConvexPolyFilled(const ImVec2* points, const int num_points, ImU32 col, bool anti_aliased);
+    IMGUI_API void  AddConcavePolyFilled(const ImVec2* points, const int points_count, ImU32 col, bool anti_aliased);
     IMGUI_API void  AddBezierCurve(const ImVec2& pos0, const ImVec2& cp0, const ImVec2& cp1, const ImVec2& pos1, ImU32 col, float thickness, int num_segments = 0);
 
     // Stateful path API, add points then finish with PathFill() or PathStroke()
