@@ -923,7 +923,7 @@ void ImDrawList::AddConcavePolyFilled(const ImVec2* points, const int points_cou
     {
         // Anti-aliased Fill
         const float AA_SIZE = 1.0f;
-        const ImU32 col_trans = col & ~0x00FFFFFF;
+        const ImU32 col_trans = col & 0x00FFFFFF;
         const int idx_count = (points_count - 2) * 3 + points_count * 6;
         const int vtx_count = (points_count * 2);
         PrimReserve(idx_count, vtx_count);
