@@ -1962,6 +1962,16 @@ BOOL_ARG(anti_aliased)
 CALL_DRAWLIST_FUNCTION_NO_RET(AddPolyline, points, num_points, col, closed, thickness, anti_aliased)
 END_IMGUI_FUNC
 
+//IMGUI_API void  AddPolyline(const ImVec2 *points, ImU32 col, bool closed, float thickness, bool anti_aliased);
+IMGUI_FUNCTION(AddPolyline_2)
+IM_VEC_2_ARRAY_ARG(points)
+NUMBER_ARG(col)
+BOOL_ARG(closed)
+NUMBER_ARG(thickness)
+BOOL_ARG(anti_aliased)
+CALL_DRAWLIST_FUNCTION_NO_RET(AddPolyline, points, len / 2, col, closed, thickness, anti_aliased)
+END_IMGUI_FUNC
+
 //IMGUI_API void  AddConvexPolyFilled(const ImVec2 *points, const int num_points, ImU32 col, bool anti_aliased);
 IMGUI_FUNCTION(AddConvexPolyFilled)
 IM_VEC_2_ARRAY_ARG(points)
@@ -1971,7 +1981,13 @@ BOOL_ARG(anti_aliased)
 CALL_DRAWLIST_FUNCTION_NO_RET(AddConvexPolyFilled, points, num_points, col, anti_aliased)
 END_IMGUI_FUNC
 
-
+//IMGUI_API void  AddConvexPolyFilled(const ImVec2 *points, ImU32 col, bool anti_aliased);
+IMGUI_FUNCTION(AddConvexPolyFilled_2)
+IM_VEC_2_ARRAY_ARG(points)
+NUMBER_ARG(col)
+BOOL_ARG(anti_aliased)
+CALL_DRAWLIST_FUNCTION_NO_RET(AddConvexPolyFilled, points, len / 2, col, anti_aliased)
+END_IMGUI_FUNC
 
 //    IMGUI_API ImGuiContext* CreateContext(void* (*malloc_fn)(size_t) = NULL, void (*free_fn)(void*) = NULL);
 // Unsupported return type ImGuiContext*

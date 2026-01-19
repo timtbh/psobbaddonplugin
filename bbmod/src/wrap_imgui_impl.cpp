@@ -571,6 +571,20 @@ static int w_BeginChild(lua_State *L)
     return impl_BeginChild_2(L);
 }
 
+static int w_AddPolyline(lua_State* L) {
+    if (lua_gettop(L) < 6) {
+        return impl_AddPolyline_2(L);
+    }
+    return impl_AddPolyline(L);
+}
+
+static int w_AddConvexPolyFilled(lua_State* L) {
+    if (lua_gettop(L) < 4) {
+        return impl_AddConvexPolyFilled_2(L);
+    }
+    return impl_AddConvexPolyFilled(L);
+}
+
 /*
 ** Custom bindings
 */
@@ -741,7 +755,8 @@ static const struct luaL_Reg imguilib[] = {
   { "SetWindowCollapsed", w_SetWindowCollapsed },
   { "SetWindowFocus", w_SetWindowFocus },
   { "BeginChild", w_BeginChild },
-
+  { "AddPolyline", w_AddPolyline },
+  { "AddConvexPolyFilled", w_AddConvexPolyFilled },
 
   // Implementation
   /*{ "ShutDown", w_ShutDown },
