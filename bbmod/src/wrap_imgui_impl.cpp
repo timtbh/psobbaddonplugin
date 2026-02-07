@@ -362,6 +362,9 @@ static int impl_##name(lua_State *L) { \
 #define BOOL_ARG(name) \
   bool name = (bool)lua_toboolean(L, arg++);
 
+#define FLOAT_VAR(name) \
+  float name;
+
 #define CALL_FUNCTION(name, retType,...) \
   retType ret = ImGui::name(__VA_ARGS__);
 
@@ -687,6 +690,8 @@ static const struct luaL_Reg imguilib[] = {
 #define OPTIONAL_BOOL_ARG(name, otherwise)
 #undef BOOL_ARG
 #define BOOL_ARG(name)
+#undef FLOAT_VAR
+#define FLOAT_VAR(name)
 #undef CALL_FUNCTION
 #define CALL_FUNCTION(name, retType, ...)
 #undef CALL_FUNCTION_NO_RET
