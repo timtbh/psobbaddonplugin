@@ -578,6 +578,71 @@ static int w_BeginChild(lua_State *L)
 ** Custom bindings
 */
 
+#define NUMBER_FIELD(name) \
+  lua_pushnumber(L, style.##name##); \
+  lua_setfield(L, -2, #name);
+
+#define BOOL_FIELD(name) \
+  lua_pushboolean(L, style.##name##); \
+  lua_setfield(L, -2, #name);
+
+#define IM_VEC_2_FIELD(name) \
+  lua_createtable(L, 0, 2); \
+  lua_pushnumber(L, style.##name##.x); \
+  lua_setfield(L, -2, "x"); \
+  lua_pushnumber(L, style.##name##.y); \
+  lua_setfield(L, -2, "y"); \
+  lua_setfield(L, -2, #name);
+
+static int w_GetStyle(lua_State *L)
+{
+    ImGuiStyle& style = ImGui::GetStyle();
+    lua_createtable(L, 0, 23);
+
+    NUMBER_FIELD(Alpha)
+    IM_VEC_2_FIELD(WindowPadding)
+    IM_VEC_2_FIELD(WindowMinSize)
+    NUMBER_FIELD(WindowRounding)
+    NUMBER_FIELD(WindowTitleAlign)
+    NUMBER_FIELD(ChildWindowRounding)
+    IM_VEC_2_FIELD(FramePadding)
+    NUMBER_FIELD(FrameRounding)
+    IM_VEC_2_FIELD(ItemSpacing)
+    IM_VEC_2_FIELD(ItemInnerSpacing)
+    IM_VEC_2_FIELD(TouchExtraPadding)
+    NUMBER_FIELD(IndentSpacing)
+    NUMBER_FIELD(ColumnsMinSpacing)
+    NUMBER_FIELD(ScrollbarSize)
+    NUMBER_FIELD(ScrollbarRounding)
+    NUMBER_FIELD(GrabMinSize)
+    NUMBER_FIELD(GrabRounding)
+    IM_VEC_2_FIELD(DisplayWindowPadding)
+    IM_VEC_2_FIELD(DisplaySafeAreaPadding)
+    BOOL_FIELD(AntiAliasedLines)
+    BOOL_FIELD(AntiAliasedShapes)
+    NUMBER_FIELD(CurveTessellationTol)
+
+    // Colors
+    lua_createtable(L, 0, ImGuiCol_COUNT);
+
+    for (int i = 0; i < ImGuiCol_COUNT; i++) {
+        ImVec4 color = style.Colors[i];
+        lua_createtable(L, 4, 0);
+        lua_pushnumber(L, color.x);
+        lua_rawseti(L, -2, 1);
+        lua_pushnumber(L, color.y);
+        lua_rawseti(L, -2, 2);
+        lua_pushnumber(L, color.z);
+        lua_rawseti(L, -2, 3);
+        lua_pushnumber(L, color.w);
+        lua_rawseti(L, -2, 4);
+        lua_setfield(L, -2, ImGui::GetStyleColName(i));
+    }
+
+    lua_setfield(L, -2, "Colors");
+    return 1;
+}
+
 static int w_GetStyleColName(lua_State *L)
 {
     int idx = luaL_checkint(L, 1);
@@ -727,6 +792,7 @@ static const struct luaL_Reg imguilib[] = {
 //#include "imgui_iterator_dock.h"
 
   // Custom
+  { "GetStyle", w_GetStyle },
   { "GetStyleColName", w_GetStyleColName },
   { "GetStyleColCount", w_GetStyleColCount },
 
